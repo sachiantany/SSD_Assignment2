@@ -11,7 +11,7 @@ import './Header.css';
 import Icon from "../../images/icon.svg"
 
 
-const GuestNavbar = () => {
+const GuestNavBar = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const dispatch = useDispatch();
     const location = useLocation();
@@ -113,10 +113,10 @@ const GuestNavbar = () => {
     </header>
     </AppBar>
     )
-    }
+};
 
  
-export default GuestNavbar;
+export default GuestNavBar;
 
 
 
