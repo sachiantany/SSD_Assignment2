@@ -49,7 +49,7 @@ export default makeStyles((theme) => ({
   },
 
   event: {
-    width: '5px',
+    width: '100px',
     height: '30px',
     marginLeft:'10px',
     marginRight:'10px',
