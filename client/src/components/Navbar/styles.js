@@ -46,5 +46,13 @@ export default makeStyles((theme) => ({
     width: '5px',
     height: '30px',
     marginTop: "5px"
+  },
+
+  event: {
+    width: '5px',
+    height: '30px',
+    marginLeft:'10px',
+    marginRight:'10px',
+    marginTop: "5px"
   }
 }));

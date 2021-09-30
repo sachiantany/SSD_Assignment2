@@ -17,7 +17,87 @@ const GuestNavBar = () => {
     const location = useLocation();
     const history = useHistory();
     const classes = useStyles();
-  
+
+    const events = window.gapi;
+    const CLIENT_ID = "1011298100450-1rp5ul3t44qopnau7jvplvsh839qqqfj.apps.googleusercontent.com";
+    const API_KEY = "AIzaSyDB4rEjetqXX195yC-msAAaiO8kayYTh4I";
+    const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    const SCOPES = "https://www.googleapis.com/auth/calendar.events";
+
+    const handleClick = () => {
+        events.load('client:auth2', () => {
+            console.log('loaded client')
+
+            events.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES,
+            })
+
+            events.client.load('calendar', 'v3', () => console.log('bam!'))
+
+            events.auth2.getAuthInstance().signIn()
+                .then(() => {
+
+                    var event = {
+                        'summary': 'Awesome Event!',
+                        'location': '800 Howard St., San Francisco, CA 94103',
+                        'description': 'Really great refreshments',
+                        'start': {
+                            'dateTime': '2020-06-28T09:00:00-07:00',
+                            'timeZone': 'America/Los_Angeles'
+                        },
+                        'end': {
+                            'dateTime': '2020-06-28T17:00:00-07:00',
+                            'timeZone': 'America/Los_Angeles'
+                        },
+                        'recurrence': [
+                            'RRULE:FREQ=DAILY;COUNT=2'
+                        ],
+                        'attendees': [
+                            {'email': 'lpage@example.com'},
+                            {'email': 'sbrin@example.com'}
+                        ],
+                        'reminders': {
+                            'useDefault': false,
+                            'overrides': [
+                                {'method': 'email', 'minutes': 24 * 60},
+                                {'method': 'popup', 'minutes': 10}
+                            ]
+                        }
+                    }
+
+                    var request = events.client.calendar.events.insert({
+                        'calendarId': 'primary',
+                        'resource': event,
+                    })
+
+                    request.execute(event => {
+                        console.log(event)
+                        window.open(event.htmlLink)
+                    })
+
+
+                    // get events
+                    events.client.calendar.events.list({
+                        'calendarId': 'primary',
+                        'timeMin': (new Date()).toISOString(),
+                        'showDeleted': false,
+                        'singleEvents': true,
+                        'maxResults': 10,
+                        'orderBy': 'startTime'
+                    }).then(response => {
+                        const events = response.result.items
+                        console.log('EVENTS: ', events)
+                    })
+
+
+
+                })
+        })
+    };
+
     const logout = () => {
       dispatch({ type: actionType.LOGOUT });
   
@@ -84,20 +164,26 @@ const GuestNavBar = () => {
                     <li className="nav-item">
                         <a href="#" className="nav-link">Support</a>
                     </li>
+
                     <li className="nav-item">
-                        <a href="#" className="nav-link nav-link-search"></a>
                     </li>
                     <li className="nav-item">
                             {/* <a href="#" className="nav-link nav-link-bag"></a> */}
                         {user?.result ? (
-                            
+
                               <div className={classes.profile}>
-                                <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-                                <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
-                            
+
+
+                                  <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+
+                                  <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
+
+                                  <div className="events">
+                                      <Button  variant="contained" className={classes.event} color="primary" onClick={handleClick}>Add Event</Button>
+                                  </div>
                                 <Button  variant="contained" className={classes.logout} color="primary" onClick={logout}>Logout</Button>
                             </div>
-                           
+
                             
                         ) : (
                              <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
