@@ -10,4 +10,3 @@ class Navlink extends Component {
  
 export default Navlink;
 
-{/* <li class="nav-item" ><a class="nav-link js-scroll-trigger" href={this.props.linkUrl}>{this.probs.Image}</a></li> */}
