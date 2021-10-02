@@ -27,4 +27,13 @@ export default makeStyles((theme) => ({
   googleButton: {
     marginBottom: theme.spacing(2),
   },
+  event: {
+    marginTop: theme.spacing(3),
+  },
+  startDate: {
+    margin: theme.spacing(2, 1, 1),
+  },
+  endDate: {
+    margin: theme.spacing(2, 1, 1),
+  },
 }));

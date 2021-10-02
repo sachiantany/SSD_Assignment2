@@ -159,7 +159,7 @@ const GuestNavBar = () => {
                         <a href="#" className="nav-link">Friends</a>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className="nav-link">Events</a>
+                        <a href="/events" className="nav-link">Events</a>
                     </li>
                     <li className="nav-item">
                         <a href="#" className="nav-link">Support</a>
@@ -179,7 +179,7 @@ const GuestNavBar = () => {
                                   <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
 
                                   <div className="events">
-                                      <Button  variant="contained" className={classes.event} color="primary" onClick={handleClick}>Add Event</Button>
+                                      {/*<Button  variant="contained" className={classes.event} color="primary" onClick={handleClick}>Add Event</Button>*/}
                                   </div>
                                 <Button  variant="contained" className={classes.logout} color="primary" onClick={logout}>Logout</Button>
                             </div>
