@@ -1,15 +1,13 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {MoreHorizIcon,MoreVertIcon} from '@material-ui/icons/MoreHoriz';
+import EditIcon from '@material-ui/icons/Edit';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import CardHeader from '@material-ui/core/CardHeader';
-import { red } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
 
 
 
@@ -51,8 +49,8 @@ const Post = ({ post, setCurrentId }) => {
       </div> */}
       {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
       <div className={classes.overlay2}>
-        <Button onClick={() => setCurrentId(post._id)} style={{ color: 'white' }} size="small">
-          <MoreHorizIcon fontSize="default" />
+        <Button onClick={() => setCurrentId(post._id)} style={{ color: 'black' }} size="small">
+          <EditIcon fontSize="default" />&nbsp;Edit&nbsp;Post
         </Button>
       </div>
       )}

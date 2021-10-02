@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import { AppBar, Typography, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
@@ -127,15 +127,15 @@ const GuestNavBar = () => {
                 <ul className="nav-list nav-list-mobile">
                     <li className="nav-item">
                         <div className="mobile-menu">
-                            <span className="line line-top"></span>
-                            <span className="line line-bottom"></span>
+                            <span className="line line-top"/>
+                            <span className="line line-bottom"/>
                         </div>
                     </li>
                     <li className="nav-item">
-                        <a href="index.html" className="nav-link nav-link-apple"></a>
+                        <a href="/" className="nav-link nav-link-apple"/>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className="nav-link nav-link-bag"></a>
+                        <a href="/" className="nav-link nav-link-bag"/>
                     </li>
                    
                 </ul>
@@ -149,20 +149,20 @@ const GuestNavBar = () => {
                       
                     </li>
                     <li className="nav-item nav-item-hidden">
-                        <img src={Icon} className="nav-link-apple"></img>
+                        <img src={Icon} className="nav-link-apple" alt=""/>
                     </li>
                     <li className="nav-item">
-                        <a href="mac" className="nav-link">News Feed</a>
+                        <a href="/" className="nav-link">News Feed</a>
                     </li>
                 
                     <li className="nav-item">
-                        <a href="#" className="nav-link">Friends</a>
+                        <a href="/" className="nav-link">Friends</a>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className="nav-link">Events</a>
+                        <a href="/" className="nav-link">Events</a>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className="nav-link">Support</a>
+                        <a href="/" className="nav-link">Support</a>
                     </li>
 
                     <li className="nav-item">
