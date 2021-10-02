@@ -8,7 +8,7 @@ import memories from '../../images/memories.png';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
 
-const Navbar = () => {
+const NavBar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const location = useLocation();
@@ -57,4 +57,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
