@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Avatar, Button } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
@@ -179,7 +179,7 @@ const GuestNavBar = () => {
                                   <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
 
                                   <div className="events">
-                                      <Button  variant="contained" className={classes.event} color="primary" onClick={handleClick}>Add Event</Button>
+                                      {/*<Button  variant="contained" className={classes.event} color="primary" onClick={handleClick}>Add Event</Button>*/}
                                   </div>
                                 <Button  variant="contained" className={classes.logout} color="primary" onClick={logout}>Logout</Button>
                             </div>
