@@ -1,4 +1,3 @@
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -6,6 +5,7 @@ import cors from 'cors';
 
 import postRoutes from './routes/posts.js';
 import userRouter from "./routes/user.js";
+import securityRouter from "./routes/encryptDecrypt.js";
 
 const app = express();
 
@@ -15,6 +15,7 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
+app.use("/security", securityRouter);
 
 const CONNECTION_URL = 'mongodb+srv://admin:admin@cluster0.tjrmx.mongodb.net/weapp?retryWrites=true&w=majority';
 const PORT = process.env.PORT|| 5000;

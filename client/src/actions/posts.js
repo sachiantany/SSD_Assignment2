@@ -1,11 +1,12 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import {CREATE, DELETE, FETCH_ALL, LIKE, UPDATE} from '../constants/actionTypes';
 import * as api from '../api/index.js';
+import {decryptData} from "../utilities/cryptographicFunctions";
 
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
 
-    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({type: FETCH_ALL, payload: JSON.parse(decryptData(sessionStorage.getItem("privateKey"), data.enc_data))});
   } catch (error) {
     console.log(error);
   }
@@ -45,7 +46,7 @@ export const likePost = (id) => async (dispatch) => {
 
 export const deletePost = (id) => async (dispatch) => {
   try {
-    await await api.deletePost(id);
+    await api.deletePost(id);
 
     dispatch({ type: DELETE, payload: id });
   } catch (error) {

@@ -2,54 +2,60 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
+import {decryptData, encryptData, getPrivateKey} from "../utilities/cryptographicFunctions.js";
 
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
     try {
+        let client_public_Key = req.body.client_public_key;
+
         const postMessages = await PostMessage.find();
-                
-        res.status(200).json(postMessages);
+
+        res.status(200).json({enc_data: encryptData(client_public_Key, JSON.stringify(postMessages))});
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 }
 
-export const getPost = async (req, res) => { 
-    const { id } = req.params;
+export const getPost = async (req, res) => {
+    const {id} = req.params;
+
+    let client_public_Key = req.body.client_public_key;
 
     try {
         const post = await PostMessage.findById(id);
-        
-        res.status(200).json(post);
+
+        res.status(200).json({enc_data: encryptData(client_public_Key, JSON.stringify(post))});
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).json({message: error.message});
     }
 }
 
 export const createPost = async (req, res) => {
-    const post = req.body;
 
-    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    const post = JSON.parse(decryptData(getPrivateKey(), req.body.enc_data));
+
+    const newPostMessage = new PostMessage({...post, creator: req.userId, createdAt: new Date().toISOString()})
 
     try {
         await newPostMessage.save();
 
-        res.status(201).json(newPostMessage );
+        res.status(201).json(newPostMessage);
     } catch (error) {
-        res.status(409).json({ message: error.message });
+        res.status(409).json({message: error.message});
     }
 }
 
 export const updatePost = async (req, res) => {
-    const { id } = req.params;
-    const { title, message, creator, selectedFile, tags } = req.body;
-    
+    const {id} = req.params;
+    const {title, message, creator, selectedFile, tags} = JSON.parse(decryptData(getPrivateKey(), req.body.enc_data));
+
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+    const updatedPost = {creator, title, message, tags, selectedFile, _id: id};
 
-    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+    await PostMessage.findByIdAndUpdate(id, updatedPost, {new: true});
 
     res.json(updatedPost);
 }

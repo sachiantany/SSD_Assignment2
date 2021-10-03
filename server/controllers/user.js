@@ -2,11 +2,12 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import UserModal from "../models/user.js";
+import {decryptData, getPrivateKey} from "../utilities/cryptographicFunctions.js";
 
 const secret = 'test';
 
 export const signin = async (req, res) => {
-  const { email, password } = req.body;
+  const {email, password} = JSON.parse(decryptData(getPrivateKey(), req.body.enc_data));
 
   try {
     const oldUser = await UserModal.findOne({ email });
@@ -26,7 +27,7 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
+  const {email, password, firstName, lastName} = JSON.parse(decryptData(getPrivateKey(), req.body.enc_data));
 
   try {
     const oldUser = await UserModal.findOne({ email });
