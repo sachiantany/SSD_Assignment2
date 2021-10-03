@@ -1,8 +1,7 @@
-
-import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {AppBar, Avatar, Button, Typography} from '@material-ui/core';
+import {Link, useHistory, useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import decode from 'jwt-decode';
 
 import * as actionType from '../../constants/actionTypes';
@@ -152,19 +151,14 @@ const GuestNavBar = () => {
                         <img src={Icon} className="nav-link-apple" alt=""/>
                     </li>
                     <li className="nav-item">
-                        <a href="/" className="nav-link">News Feed</a>
-                    </li>
-                
-                    <li className="nav-item">
-                        <a href="/" className="nav-link">Friends</a>
+                        <a href="/" className="nav-link">Posts</a>
                     </li>
                     <li className="nav-item">
-                        <a href="/" className="nav-link">Events</a>
+                        <a href="/events" className="nav-link">Events</a>
                     </li>
                     <li className="nav-item">
-                        <a href="/" className="nav-link">Support</a>
+                        <a href="#" className="nav-link">About Us</a>
                     </li>
-
                     <li className="nav-item">
                     </li>
                     <li className="nav-item">
