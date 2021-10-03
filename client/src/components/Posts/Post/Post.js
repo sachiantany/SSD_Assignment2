@@ -1,17 +1,16 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import {Button, Card, CardActions, CardContent, CardMedia, Typography} from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import moment from 'moment';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 
 
-
-import { likePost, deletePost } from '../../../actions/posts';
+import {deletePost, likePost} from '../../../actions/posts';
 import useStyles from './styles';
 
 const Post = ({ post, setCurrentId }) => {
@@ -20,16 +19,21 @@ const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const Likes = () => {
-    if (post.likes.length > 0) {
-      return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
-        ? (
-          <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
-        ) : (
-          <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
-        );
-    }
 
-    return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
+      if (post.likes !== undefined) {
+          if (post.likes.length > 0) {
+              return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+                  ? (
+                      <><ThumbUpAltIcon
+                          fontSize="small"/>&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</>
+                  ) : (
+                      <><ThumbUpAltOutlined
+                          fontSize="small"/>&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+                  );
+          }
+      }
+
+      return <><ThumbUpAltOutlined fontSize="small"/>&nbsp;Like</>;
   };
 
   return (
